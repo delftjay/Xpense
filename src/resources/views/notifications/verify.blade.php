@@ -1,0 +1,1 @@
+{{ __('您的验证码为：:code，请在:minutes分钟内完成验证。【Xpense】', [ 'code' => $code, 'minutes' => $minutes ]) }}
