@@ -47,4 +47,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * 获取与用户关联的空投记录。
+     */
+    public function airport()
+    {
+        return $this->hasOne(Airdrop::class);        
+    }
 }

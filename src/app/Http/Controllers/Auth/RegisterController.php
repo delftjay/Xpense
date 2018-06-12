@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -32,15 +33,36 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+    protected $request;
+    protected $invite_url = NULL;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->middleware('guest');
+
+        $this->request = $request;
+    }
+
+    protected function redirectTo()
+    {
+        if ($this->invite_url) {
+            return $this->invite_url;
+        }
+
+        if ($this->request->session()->has('invite_url')) {
+            $url = $this->request->session()->get('invite_url');
+
+            $this->request->session()->forget('invite_url');
+
+            return $url;
+        }
+
+        return '/';
     }
 
     /**
@@ -80,7 +102,11 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
+    {   
+        if ($data['invite_url']) {
+            $this->invite_url = $data['invite_url'];
+        }
+        
         return User::create([
             'name' => $data['name'],            
             'password' => Hash::make($data['password']),
@@ -90,8 +116,12 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('auth.register');
+        $data = [
+            'invite_url' => $request->invite_url,
+        ];
+
+        return view('auth.register', $data);
     }
 }

@@ -66,6 +66,7 @@ class JsonResponse
 		$response->headers->set('Content-Type', 'application/json');
 		$content = json_encode($data);
 		$response = $response->setContent($content);
+		
 		return $response;
 	}
 }

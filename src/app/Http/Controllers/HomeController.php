@@ -27,7 +27,7 @@ class HomeController extends Controller
         $language = $request->language;
 
         // 设置session
-        $request->session()->put('language', $language);        
+        $request->session()->put('language', $language);
 
         // 设置系统语言
         app()->setLocale($language);
