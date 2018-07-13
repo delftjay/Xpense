@@ -35,7 +35,7 @@ class SwitchLanguage
 
         // 若浏览器中也没有取到，则使用默认英语
         if (!$language) {
-            $language = 'en';
+            $language = 'zh-CN';
         }
 
         // 记录语言设置到session中

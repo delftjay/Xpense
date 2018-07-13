@@ -42,7 +42,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
-            // 'auth:api',
+
             \App\Http\Middleware\JsonResponse::class,
         ],
     ];
@@ -62,7 +62,8 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,        
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        
         'permission' => \App\Http\Middleware\CheckForUserPermission::class,
         'audit' => \App\Http\Middleware\OperationRecord::class,
     ];

@@ -24,7 +24,7 @@ class AuthController extends Controller
 	 * 登陆页面
 	 */
 	public function getLogin()
-	{
+	{		
 		return view('root.auth.login');
 	}
 
